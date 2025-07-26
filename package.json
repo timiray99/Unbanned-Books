@@ -1,0 +1,16 @@
+{
+  "name": "unbanned-books",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start-local": "react-scripts start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "Unbanned-Books"
+  },
+  "author": "Eliana Longoria-Valenzuela",
+  "license": "ISC",
+  "dependencies": {}
+}

@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Genres from './pages/Genres.js';
+import Libraries from './pages/libraries.js';
+import Resources from './pages/resources.js';
 import './App.css';
 
 const styles = `
@@ -11,7 +15,6 @@ const styles = `
   .container 
   { max-width: 1200px; 
    margin: 0 auto; 
-   padding: 20px; 
    background-color: white; 
    min-height: 100vh; 
    border: 2px solid #333; 
@@ -20,9 +23,7 @@ const styles = `
   display: flex; 
   justify-content: space-between; 
   align-items: center; 
-  padding: 20px 0; 
   border-bottom: 2px solid #333; 
-  margin-bottom: 30px; 
   }
   .logo { 
   width: 60px; 
@@ -44,14 +45,17 @@ const styles = `
    color: #333; 
    font-size: 18px; 
    cursor: pointer; 
-   padding: 10px; 
+   padding-bottom: 10px; 
+   padding-top: 0px
    }
   .nav a:hover, .nav a.active 
-  { background-color: #f0f0f0; 
-   border-radius: 5px; 
+  { 
+    background-color: #e4cabd;
+    border-radius: 8px;
    }
   .search-container { 
   position: relative; 
+  padding-right: 20px;
   
   }
   .search { 
@@ -60,6 +64,7 @@ const styles = `
   border-radius: 25px; 
   font-size: 16px; 
   width: 200px; 
+  background-color: #e4cabd;
   }
   .content { 
   padding: 20px 0; 
@@ -70,13 +75,11 @@ const styles = `
   .page.active { 
   display: block; 
   }
-  .hero-section { 
+  .image-section { 
   text-align: center; 
-  padding: 40px 20px; 
-  border: 2px solid #333; 
-  border-radius: 10px; 
-  margin-bottom: 30px; 
-  background-color: #fafafa; 
+  padding-bottom: 30px;
+  margin-bottom: 20px; 
+  background-color: #ebebeb;
   }
   .mission { 
   margin-top: 30px; 
@@ -87,12 +90,6 @@ const styles = `
   font-size: 24px; 
   margin-bottom: 15px; 
   text-decoration: underline; 
-  }
-  .wavy-line { 
-  width: 100%; 
-  height: 20px; 
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10'%3E%3Cpath d='M0,5 Q25,0 50,5 T100,5' stroke='%23333' stroke-width='1' fill='none'/%3E%3C/svg%3E") repeat-x; 
-  margin: 20px 0; 
   }
   .footer-text { 
   position: absolute; 
@@ -110,25 +107,42 @@ const styles = `
   border: 1px solid #ddd; 
   padding: 15px; 
   text-align: center; 
-  background-color: #fff; 
+  background-color: #ebebeb; 
   border-radius: 5px; 
   }
   .resource-item { 
   border: 1px solid #ddd; 
   padding: 20px; 
   margin-bottom: 15px; 
-  background-color: #fff; 
+  background-color: #ebebeb; 
   border-radius: 5px; 
   }
 `;
 
-function App() {
-  const [activePage, setActivePage] = useState('genres');
-  const [searchTerm, setSearchTerm] = useState('');
+function Home() {
+  return (
+    <div id="App">
+      <div className="image-section"> 
+        <img src="images/books.png" alt="Bookshelf" />
+      </div>
+      <div className="mission">
+        <h2 style={{ textAlign: "center" }}>Mission</h2>
+        <p style={{ textAlign: "center" }}>
+          We believe that access to knowledge and diverse perspectives is a fundamental right essential to a free and informed society. Our open source library platform democratizes access to educational materials and literature that have been restricted or banned in various jurisdictions, ensuring that geographical or political barriers cannot limit intellectual freedom.            
+        </p>
+        <p style={{ textAlign: "center" }}> 
+          By providing unrestricted access to books covering ethnic studies, critical race theory, and other essential educational content, we empower individuals to engage with diverse viewpoints, understand historical and contemporary social issues, and form their own informed opinions. Our platform serves as a digital sanctuary for intellectual freedom, supporting educators, students, and curious minds who seek comprehensive understanding of our shared human experience.
+        </p>
+        <p style={{ textAlign: "center" }}>              
+          We are committed to preserving the principles of free speech, promoting educational equity, and fostering critical thinking through open access to knowledge that builds bridges of understanding across communities.
+        </p>
+      </div>
+    </div>
+  );
+}
 
-  const handleNavClick = (page) => {
-    setActivePage(page);
-  };
+function App() {
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value.toLowerCase());
@@ -137,32 +151,15 @@ function App() {
   };
 
   return (
-    <div>
+    <div style={{ backgroundColor: "#e4cabd" }}>
       <style>{styles}</style>
       <header className="header">
-        <image> <img src="images/logo.png" alt="Logo" /></image>
+        <img src="/images/logo.png" alt="Logo" />
         <nav className="nav">
-          <a
-            href="#" //TODO add different pages 
-            className={`nav-link${activePage === 'genres' ? ' active' : ''}`}
-            onClick={() => handleNavClick('genres')}
-          >
-            genres
-          </a>
-          <a
-            href="#"//TODO add different pages 
-            className={`nav-link${activePage === 'libraries' ? ' active' : ''}`}
-            onClick={() => handleNavClick('libraries')}
-          >
-            libraries
-          </a>
-          <a
-            href="#"//TODO add different pages 
-            className={`nav-link${activePage === 'resources' ? ' active' : ''}`}
-            onClick={() => handleNavClick('resources')}
-          >
-            resources
-          </a>
+          <Link to="/" className="nav-link">home</Link>
+          <Link to="/genres" className="nav-link">genres</Link>
+          <Link to="/libraries" className="nav-link">libraries</Link>
+          <Link to="/resources" className="nav-link">resources</Link>
         </nav>
         <div className="search-container">
           <input
@@ -174,85 +171,22 @@ function App() {
           />
         </div>
       </header>
-
       <main className="content">
-
-        {/* Genres Page */}
-        <div id="genres" className={`page${activePage === 'genres' ? ' active' : ''}`}>
-          <div className="hero-section"> </div>
-          <h1 style={{ textAlign: "center" }}>Book Genres</h1>
-            <p style={{ textAlign: "center" }}>Explore different categories of books and discover new stories</p>
-            <div style={{ padding: "20px" }}> </div>
-          <div className="mission">
-            <h2 style={{ textAlign: "center" }}>Mission</h2>
-            <p style={{ textAlign: "center" }}>
-              To help readers discover books across all genres and connect with stories that inspire, educate, and entertain.
-            </p>
-          </div>
-          <div className="grid-container">
-            <div className="book-item">Fiction</div>
-            <div className="book-item">Non-Fiction</div>
-            <div className="book-item">Mystery</div>
-            <div className="book-item">Romance</div>
-            <div className="book-item">Sci-Fi</div>
-            <div className="book-item">Biography</div>
-          </div>
-        </div>
-
-        {/* Libraries Page */}
-        <div id="libraries" className={`page${activePage === 'libraries' ? ' active' : ''}`}>
-          <div className="hero-section">
-            <h1>Libraries</h1>
-            <p>Find local libraries and digital collections</p>
-          </div>
-          <div className="mission">
-            <h2>Mission</h2>
-            <p>
-              To connect readers with library resources and promote access to books for everyone in the community.
-            </p>
-          </div>
-          <div className="wavy-line"></div>
-          <div className="grid-container">
-            <div className="book-item">Central Library</div>
-            <div className="book-item">Digital Collection</div>
-            <div className="book-item">Community Branch</div>
-            <div className="book-item">University Library</div>
-            <div className="book-item">Mobile Library</div>
-            <div className="book-item">Archive Center</div>
-          </div>
-        </div>
-
-        {/* Resources Page */}
-        <div id="resources" className={`page${activePage === 'resources' ? ' active' : ''}`}>
-          <div className="hero-section">
-            <h1>Resources</h1>
-            <p>Tools and guides for readers and writers</p>
-          </div>
-          <div className="mission">
-            <h2>Mission</h2>
-            <p>
-              To provide valuable resources that enhance the reading experience and support literacy development.
-            </p>
-          </div>
-          <div className="wavy-line"></div>
-          <div>
-            <div className="resource-item">
-              <h3>Reading Guides</h3>
-              <p>Comprehensive guides to help you get the most out of your reading experience.</p>
-            </div>
-            <div className="resource-item">
-              <h3>Book Reviews</h3>
-              <p>Honest reviews and recommendations from fellow readers.</p>
-            </div>
-            <div className="resource-item">
-              <h3>Writing Tools</h3>
-              <p>Resources for aspiring writers including templates and style guides.</p>
-            </div>
-          </div>
-        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/genres" element={<Genres />} />
+          <Route path="/libraries" element={<Libraries />} />
+          <Route path="/resources" element={<Resources />} />
+        </Routes>
       </main>
-   </div>
+    </div>
   );
 }
 
-export default App;
+export default function WrappedApp() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+}
