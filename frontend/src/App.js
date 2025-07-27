@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Genres from './pages/Genres.js';
 import Libraries from './pages/libraries.js';
 import Resources from './pages/resources.js';
+import SubmitStory from './pages/submitStory';
 import './App.css';
 
 const styles = `
@@ -188,6 +189,7 @@ function App() {
           <Link to="/genres" className="nav-link">Genres</Link>
           <Link to="/libraries" className="nav-link">Libraries</Link>
           <Link to="/resources" className="nav-link">Resources</Link>
+          <Link to="/submit-story" className="nav-link">Share Your Story</Link>
         </nav>
         <div className="search-container">
           <input
@@ -205,11 +207,15 @@ function App() {
           <Route path="/genres" element={<Genres />} />
           <Route path="/libraries" element={<Libraries />} />
           <Route path="/resources" element={<Resources />} />
+          <Route path="/submit-story" element={<SubmitStory />} />
         </Routes>
       </main>
       <footer className="footer">
         <div className="footer-text">created through code2040</div>
         <div className="footer-text">2025</div>
+        <p style={{ fontSize: "14px", textAlign: "center", marginTop: "10px" }}>
+  Data Source: PEN America, ALA Book Ban Reports
+</p>
       </footer>
     </div>
   );
