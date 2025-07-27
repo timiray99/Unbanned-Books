@@ -2,9 +2,9 @@ import React from 'react';
 
 const styles = `
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: Times New Roman, sans-serif; background-color: #f5f5f5; }
+  body { font-family: Yuji Syuku, Zen Kaku Gothic New; background-color: #f5f5f5; }
   .content { padding: 40px 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
-  .genres-title { text-align: center; margin-bottom: 10px; }
+  .genres-title { text-align: center; margin-bottom: 10px; color: #57534E; }
   .genres-desc { text-align: center; margin-bottom: 30px; }
   .grid-container {
     display: grid;
@@ -13,6 +13,7 @@ const styles = `
     max-width: 900px;
     margin: 0 auto;
     justify-items: center;
+    background: #e4cabd;
   }
   .book-item {
     background: #fff;
@@ -46,17 +47,17 @@ const styles = `
 
 const books = [
   { title: "Critical Race Theory", img: "/images/stamped.png" },
-  { title: "Ethnic Studies", img: "/images/absolutely.png" },
-  { title: "Black History", img: "/images/absolutely.png" },
+  { title: "Ethnic Studies", img: "/images/migrant.png" },
+  { title: "Black History", img: "/images/jimcrow.png" },
   { title: "Genocide Studies", img: "/images/palestine.png" },
-  { title: "Religious Studies", img: "/images/absolutely.png" },
-  { title: "Biography", img: "/images/biography.png" },
+  { title: "Religious Studies", img: "/images/satanic.png" },
+  { title: "Biography", img: "/images/frank.png" },
   { title: "Comics", img: "/images/genderqueer.png" },
-  { title: "Classics", img: "/images/mystery.png" },
-  { title: "Children's books", img: "/images/absolutely.png" },
-  { title: "Indigenous History", img: "/images/romance.png" },
-  { title: "Sci-Fi", img: "/images/scifi.png" },
-  { title: "Young Adult", img: "/images/absolutely.png" },
+  { title: "Classics", img: "/images/mocking.png" },
+  { title: "Children's books", img: "/images/last.png" },
+  { title: "Indigenous History", img: "/images/absolutely.jpg" },
+  { title: "Sci-Fi", img: "/images/handmaid.png" },
+  { title: "Young Adult", img: "/images/boys.png" },
 ];
 
 function Genres() {
@@ -65,7 +66,7 @@ function Genres() {
       <style>{styles}</style>
       <main className="content">
         <div> 
-          <h1 className="genres-title">Book Genres</h1>
+          <h1 className="genres-title"> Book Genres</h1>
           <p className="genres-desc">Explore different categories of books and discover new stories</p>
         </div>
         <div className="grid-container">
