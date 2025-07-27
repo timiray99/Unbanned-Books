@@ -104,7 +104,7 @@ const Libraries = () => {
       <style>{styles}</style>
       <main className="libraries-page">
         <section className="libraries-header">
-          <h1>📚 Libraries & Access</h1>
+          <h1>Libraries & Access</h1>
         </section>
 
         <section className="open-access">

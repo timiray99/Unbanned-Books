@@ -46,6 +46,7 @@ const styles = `
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     transition: transform 0.15s;
     width: 180px;
+    position: relative;
   }
   .book-item:hover {
     transform: translateY(-6px) scale(1.04);
@@ -65,26 +66,106 @@ const styles = `
     color: #333;
     margin-top: 6px;
   }
+  .hover-fact {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background-color: #57534E;
+    color: #f4d4d4;
+    padding: 10px;
+    border-radius: 8px;
+    position: absolute;
+    z-index: 10;
+    width: 200px;
+    font-size: 0.9rem;
+    text-align: left;
+    top: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .book-item:hover .hover-fact {
+    visibility: visible;
+    opacity: 1;
+  }
 `;
 
-// Books with multiple tags
 const books = [
-  { title: "Critical Race Theory", img: "/images/stamped.png", tags: ["Race", "Ethnic Studies", "Resistance"] },
-  { title: "Ethnic Studies", img: "/images/migrant.png", tags: ["Immigration", "Race"] },
-  { title: "Black History", img: "/images/jimcrow.png", tags: ["Race", "History", "Resistance"] },
-  { title: "Genocide Studies", img: "/images/palestine.png", tags: ["History", "Resistance", "Religion"] },
-  { title: "Religious Studies", img: "/images/satanic.png", tags: ["Religion", "Free Expression"] },
-  { title: "Biography", img: "/images/frank.png", tags: ["Biography", "History", "Genocide"] },
-  { title: "Comics", img: "/images/genderqueer.png", tags: ["LGBTQ+", "Graphic Novel"] },
-  { title: "Classics", img: "/images/mocking.png", tags: ["Race", "Coming of Age"] },
-  { title: "Children's books", img: "/images/last.png", tags: ["Children", "Family", "Resistance"] },
-  { title: "Indigenous History", img: "/images/absolutely.jpg", tags: ["Indigenous", "History", "Race"] },
-  { title: "Sci-Fi", img: "/images/handmaid.png", tags: ["Sci-Fi", "Feminism", "Resistance"] },
-  { title: "Young Adult", img: "/images/boys.png", tags: ["LGBTQ+", "Coming of Age"] },
+  {
+    title: "Critical Race Theory",
+    img: "/images/stamped.png",
+    tags: ["Race", "Ethnic Studies", "Resistance"],
+    fact: "Books on race and CRT are among the most frequently banned in U.S. schools."
+  },
+  {
+    title: "Ethnic Studies",
+    img: "/images/migrant.png",
+    tags: ["Immigration", "Race"],
+    fact: "Books that explore immigration or Latinx identity are often targeted in border states."
+  },
+  {
+    title: "Black History",
+    img: "/images/jimcrow.png",
+    tags: ["Race", "History", "Resistance"],
+    fact: "Books that discuss systemic racism or Black resistance movements are often removed from curricula."
+  },
+  {
+    title: "Genocide Studies",
+    img: "/images/palestine.png",
+    tags: ["History", "Resistance", "Religion"],
+    fact: "Historical texts covering genocide or human rights abuses face bans for being 'controversial.'"
+  },
+  {
+    title: "Religious Studies",
+    img: "/images/satanic.png",
+    tags: ["Religion", "Free Expression"],
+    fact: "Books perceived as critical of religion or exploring minority faiths are frequently challenged."
+  },
+  {
+    title: "Biography",
+    img: "/images/frank.png",
+    tags: ["Biography", "History", "Genocide"],
+    fact: "Memoirs by Holocaust survivors or activists have been banned for 'disturbing content.'"
+  },
+  {
+    title: "Comics",
+    img: "/images/genderqueer.png",
+    tags: ["LGBTQ+", "Graphic Novel"],
+    fact: "LGBTQ+ graphic novels are among the top 10 most banned books every year."
+  },
+  {
+    title: "Classics",
+    img: "/images/mocking.png",
+    tags: ["Race", "Coming of Age"],
+    fact: "Even classic books are banned for addressing racism, sexual assault, or 'inappropriate language.'"
+  },
+  {
+    title: "Children's books",
+    img: "/images/last.png",
+    tags: ["Children", "Family", "Resistance"],
+    fact: "Books featuring nontraditional families or activism are being removed from elementary schools."
+  },
+  {
+    title: "Indigenous History",
+    img: "/images/absolutely.jpg",
+    tags: ["Indigenous", "History", "Race"],
+    fact: "Books on Indigenous identity are banned for challenging the 'dominant narrative' in U.S. history."
+  },
+  {
+    title: "Sci-Fi",
+    img: "/images/handmaid.png",
+    tags: ["Sci-Fi", "Feminism", "Resistance"],
+    fact: "Feminist dystopias like *The Handmaid’s Tale* are often banned for promoting 'political agendas.'"
+  },
+  {
+    title: "Young Adult",
+    img: "/images/boys.png",
+    tags: ["LGBTQ+", "Coming of Age"],
+    fact: "YA books exploring queer identities or teen mental health are among the most challenged."
+  },
 ];
 
-// Extract unique tags
-const allTags = [...new Set(books.flatMap(book => book.tags))];
+// Get unique tags without duplicates
+const allTags = Array.from(new Set(books.flatMap(book => book.tags)));
 
 function Genres() {
   const [activeTags, setActiveTags] = useState([]);
@@ -105,7 +186,7 @@ function Genres() {
     <div style={{ backgroundColor: "#e4cabd", minHeight: "100vh" }}>
       <style>{styles}</style>
       <main className="content">
-        <div> 
+        <div>
           <h1 className="genres-title">Book Genres</h1>
           <p className="genres-desc">Filter books by theme and discover stories being silenced</p>
         </div>
@@ -130,6 +211,7 @@ function Genres() {
               <div className="book-item" key={idx}>
                 <img src={book.img} alt={book.title} className="book-img" />
                 <div className="book-title">{book.title}</div>
+                <div className="hover-fact">{book.fact}</div>
               </div>
             ))
           ) : (
