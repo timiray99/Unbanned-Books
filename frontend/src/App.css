@@ -36,3 +36,43 @@
     transform: rotate(360deg);
   }
 }
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #eacfc2;
+  border-bottom: 1px solid #333;
+}
+
+nav a {
+  margin: 0 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: #333;
+}
+
+nav a:hover {
+  border-bottom: 2px solid #333;
+}
+
+.search-bar input {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: 1px solid #999;
+}
+
+main {
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.library-section a {
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.free-ebooks a {
+  margin-right: 1rem;
+}
+
